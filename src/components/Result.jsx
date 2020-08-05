@@ -3,8 +3,8 @@ import { FaRegCheckCircle, FaRegTimesCircle } from "react-icons/fa";
 
 const Result = () => {
   return (
-    <div>
-      <h1>Pregunta</h1>
+    <div className="question-container">
+      <h1 className="answer">Pregunta</h1>
       <FaRegCheckCircle />
       <FaRegTimesCircle />
     </div>

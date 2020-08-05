@@ -5,7 +5,7 @@ import Results from "../pages/Results";
 
 const Question = ({ question, total, next, current }) => {
   const [answerSelected, setAnswerSelected] = useState(null);
-  const [nextQuestion, setNextQuestion] = useState(0);
+  // const [nextQuestion, setNextQuestion] = useState(0);
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
