@@ -5,8 +5,8 @@ import Results from "../pages/Results";
 
 const Question = ({ question, total, next, current }) => {
   const [answerSelected, setAnswerSelected] = useState(null);
-  // const [nextQuestion, setNextQuestion] = useState(0);
   const [reset, setReset] = useState(false);
+  const [listaRespuestas, setListaRespuestas] = useState([]);
 
   useEffect(() => {
     if (answerSelected && reset) {
@@ -25,6 +25,7 @@ const Question = ({ question, total, next, current }) => {
   // el usurio lo eligio pero es correcta => correcto
   const getStatus = (option) => {
     // cuando se renderiza por primara vez se muestran todos en blanco
+
     if (!answerSelected) return "";
 
     if (option == question.answer) return "correcto";
@@ -33,52 +34,63 @@ const Question = ({ question, total, next, current }) => {
   };
 
   const onSelectOption = (option) => {
-    setAnswerSelected(option);
+    if (!answerSelected) {
+      setAnswerSelected(option);
+    }
   };
 
   const handleNextQuestion = () => {
     if (current + 1 < total) {
+      setListaRespuestas([
+        ...listaRespuestas,
+        { numero: current + 1, correcta: answerSelected == question.answer },
+      ]);
+      console.log(listaRespuestas);
       next(current + 1);
       setReset(true);
     }
   };
-  if (current + 1 > total) {
-    return <Results />;
+
+  if (current + 1 < total) {
+    return (
+      <div className="card-question">
+        <p className="question-title">{question.categoryId}</p>
+        <p className="question-subtitle">
+          Pregunta {question.id}/{total}
+        </p>
+        <p className="question">{question.question}</p>
+        <Option
+          onChange={() => onSelectOption("A")}
+          answer={question.options.A}
+          status={getStatus("A")}
+          checked={answerSelected == "A"}
+        />
+        <Option
+          onChange={() => onSelectOption("B")}
+          answer={question.options.B}
+          status={getStatus("B")}
+          checked={answerSelected == "B"}
+        />
+        <Option
+          onChange={() => onSelectOption("C")}
+          answer={question.options.C}
+          status={getStatus("C")}
+          checked={answerSelected == "C"}
+        />
+        <Option
+          onChange={() => onSelectOption("D")}
+          answer={question.options.D}
+          status={getStatus("D")}
+          checked={answerSelected == "D"}
+        />
+        <button className="btn" onClick={handleNextQuestion}>
+          Siguiente
+        </button>
+      </div>
+    );
   }
-  return (
-    <div className="card-question">
-      <p className="question-title">{question.categoryId}</p>
-      <p className="question-subtitle">Pregunta {question.id}</p>
-      <p className="question">{question.question}</p>
-      <Option
-        onChange={() => onSelectOption("A")}
-        answer={question.options.A}
-        status={getStatus("A")}
-        checked={answerSelected == "A"}
-      />
-      <Option
-        onChange={() => onSelectOption("B")}
-        answer={question.options.B}
-        status={getStatus("B")}
-        checked={answerSelected == "B"}
-      />
-      <Option
-        onChange={() => onSelectOption("C")}
-        answer={question.options.C}
-        status={getStatus("C")}
-        checked={answerSelected == "C"}
-      />
-      <Option
-        onChange={() => onSelectOption("D")}
-        answer={question.options.D}
-        status={getStatus("D")}
-        checked={answerSelected == "D"}
-      />
-      <button className="btn-siguiente" onClick={handleNextQuestion}>
-        Siguiente
-      </button>
-    </div>
-  );
+
+  return <Results listaRespuestas={listaRespuestas} />;
 };
 
 export default Question;
