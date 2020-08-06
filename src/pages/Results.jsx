@@ -1,41 +1,23 @@
 import React from "react";
 import "../pages/Results.css";
 import Result from "../components/Result";
+import Valoracion from "../components/Valoracion";
+import { Link } from "react-router-dom";
 
 const Results = ({ listaRespuestas }) => {
-  // const valoracionResultado = (porcentaje) => {
-  //   if (porcentaje < 25) {
-  //     return "seguí intentando";
-  //   }
-  //   if (porcentaje >= 25 && porcentaje < 50) {
-  //     return "regular";
-  //   }
-  //   if (porcentaje >= 50 && porcentaje < 75) {
-  //     return "bueno";
-  //   }
-  //   if (porcentaje >= 75 && porcentaje < 100) {
-  //     return "excelentes";
-  //   }
-  // };
   return (
     <div className="container-results">
       <p className="results-title">Categoría</p>
       <p className="results-subtitle results-mod">Resultados</p>
       {listaRespuestas.map((respuesta) => {
         console.log(respuesta);
-        return <Result respuesta={respuesta} />;
+        return <Result respuesta={respuesta} key={respuesta.numero} />;
       })}
-      <p className="answer puntaje centrado">Puntaje</p>
-      <p className="answer grande centrado">
-        Resultado
-        <span className="porcentaje">
-          {(listaRespuestas.filter((respuesta) => respuesta.correcta).length *
-            100) /
-            listaRespuestas.length}
-          %
-        </span>
-      </p>
-      <button className="btn">Ir a Home</button>
+      <Valoracion listaRespuestas={listaRespuestas} />
+
+      <Link className="btn" to="/home">
+        Ir a Home
+      </Link>
     </div>
   );
 };
