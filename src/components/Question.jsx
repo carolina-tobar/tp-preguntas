@@ -40,7 +40,7 @@ const Question = ({ question, total, next, current }) => {
   };
 
   const handleNextQuestion = () => {
-    if (current + 1 < total) {
+    if (current + 1 <= total) {
       setListaRespuestas([
         ...listaRespuestas,
         { numero: current + 1, correcta: answerSelected == question.answer },
@@ -51,12 +51,12 @@ const Question = ({ question, total, next, current }) => {
     }
   };
 
-  if (current + 1 < total) {
+  if (current + 1 <= total) {
     return (
       <div className="card-question">
         <p className="question-title">{question.categoryId}</p>
         <p className="question-subtitle">
-          Pregunta {question.id}/{total}
+          Pregunta {current + 1}/{total}
         </p>
         <p className="question">{question.question}</p>
         <Option

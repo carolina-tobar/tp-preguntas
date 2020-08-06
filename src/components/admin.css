@@ -1,0 +1,11 @@
+.card-mod {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.btn-mod {
+  margin: 1rem 0;
+  font-weight: 500;
+  align-self: center;
+}
